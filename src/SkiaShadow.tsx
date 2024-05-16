@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from 'react';
-import { I18nManager, LayoutChangeEvent, StyleSheet, View } from 'react-native';
-import { Canvas, Color, Path, Shadow } from '@shopify/react-native-skia';
+import type { LayoutChangeEvent } from 'react-native';
+import { I18nManager, StyleSheet, View } from 'react-native';
+import type { Color } from '@shopify/react-native-skia';
+import { Canvas, Path, Shadow } from '@shopify/react-native-skia';
 
 import { usePath, useShadowDimensions } from './hooks';
 
@@ -18,7 +20,6 @@ export type SkiaShadowProps = {
 };
 
 const isRTL = I18nManager.isRTL;
-
 export const SkiaShadow = (props: SkiaShadowProps) => {
   const { blur, dy, borderRadius = 0, color = 'black', children } = props;
   const { borderTopLeftRadius = borderRadius } = props;
@@ -26,7 +27,7 @@ export const SkiaShadow = (props: SkiaShadowProps) => {
   const { borderBottomLeftRadius = borderRadius } = props;
   const { borderBottomRightRadius = borderRadius } = props;
 
-  const dx = props.dx * (isRTL ? -1 : 1);
+  const dx = isRTL ? -props.dx : props.dx;
 
   const [shadowHeight, setShadowHeight] = useState(0);
   const [shadowWidth, setShadowWidth] = useState(0);
